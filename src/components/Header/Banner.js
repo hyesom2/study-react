@@ -12,6 +12,7 @@ const Container = styled.section`
   height: 45px;
   background-color: #000;
   cursor: pointer;
+  text-transform: uppercase;
 
   .banner-title {
     font-size: 11px;
@@ -19,7 +20,6 @@ const Container = styled.section`
     letter-spacing: 0.1em;
     line-height: 1.2;
     color: #fff;
-    margin-right: 10px;
   }
 
   .banner-icon-more {
@@ -34,6 +34,21 @@ const Container = styled.section`
       display: block;
       width: 100%;
       height: 100%;
+    }
+  }
+
+  @media (min-width: 600px) {
+  }
+  @media (min-width: 960px) {
+    height: 40px;
+
+    .banner-title {
+      margin-right: 10px;
+    }
+    .banner-icon-more {
+      position: relative;
+      top: 0;
+      right: 0;
     }
   }
 `;
