@@ -1,8 +1,10 @@
-import React from 'react';
+import { React, useState } from 'react';
 import styled from 'styled-components';
 // > icons
 import IconMoreDown from '../../assets/icons/icon_more_down.svg';
 import IconCloseButton from '../../assets/icons/icon_button_close.svg';
+// > data
+import BannerData from '../../assets/data/BannerData';
 
 const Container = styled.section`
   position: relative;
@@ -93,7 +95,6 @@ const BannerModal = styled.section`
   }
 
   .banner-modal-content {
-    height: 100%;
     margin-bottom: 40px;
 
     &:last-child {
@@ -131,6 +132,8 @@ const BannerModal = styled.section`
   }
 
   @media (min-width: 600px) {
+    height: 100%;
+
     .banner-modal-close-button-wrapper {
       padding: 30px 30px 0 0;
     }
@@ -147,8 +150,8 @@ const BannerModal = styled.section`
     }
   }
   @media (min-width: 960px) {
-    height: auto;
     max-height: 500px;
+    height: auto;
 
     .banner-modal-close-button-wrapper {
       padding: 20px 20px 0 0;
@@ -188,11 +191,13 @@ const Overlay = styled.div`
 `;
 
 const Banner = () => {
+  const [banner] = useState(BannerData);
+  
   return (
     <>
       <Container id="banner" className="banner" role="banner">
         <h1 className="banner-title" aria-label="배너 내용">
-          가입/로그인/배송지 입력 안내
+          { banner[0].title }
         </h1>
         <div className="banner-icon-more" aria-label="더보기 아이콘">
           <img src={ IconMoreDown } alt="더보기 아이콘" />
@@ -205,21 +210,17 @@ const Banner = () => {
           </button>
         </div>
         <div className="banner-modal-wrapper">
-          <div className="banner-modal-content">
-            <h1>가입/로그인/배송지 입력 안내</h1>
-            <p>아디다스 앱 카카오 로그인이 런칭 되었습니다. 이제 앱에서도 간편한 소셜 로그인을 만나보세요! *해외 계정으로 회원 가입시 오류가 발생할 수 있으며, 로그인 오류 및 배송지 입력 기준은 아래 링크를 통해 확인해 주세요.</p>
-            <a href="/">가입/로그인/배송지 입력 기준 자세히 보기</a>
-          </div>
-          <div className="banner-modal-content">
-            <h1>회원가입 10% 쿠폰 및 생일 쿠폰 지급 관련 기준 안내</h1>
-            <p>아디클럽 가입기념으로 제공되는 Welcome 10% 할인 쿠폰은 adidas.co.kr 회원가입 시 [이메일 수신동의]한 회원에 한해 발급되며, 생일 쿠폰도 이메일 수신동의를 하신 경우에만 쿠폰이 발급됩니다.</p>
-            <a href="/">쿠폰 지급 관련 기준 자세히 보기</a>
-          </div>
-          <div className="banner-modal-content">
-            <h1>아디다스 구매 이용약관 개정 공지</h1>
-            <p>당사에서 운영하는 사이트와 이용자에게 제공하는 서비스와 관련하여, 2023년 9월 25일 부로 구매 이용약관이 새롭게 개정됩니다. 자세한 내용은 아래 링크를 통해 확인 가능합니다.</p>
-            <a href="/">구매 이용약관 개정 사항 보기</a>
-          </div>
+          {
+            banner.map((bannerData, i) => {
+              return (
+                <div className="banner-modal-content" key={ bannerData.id }>
+                  <h1>{ bannerData.title }</h1>
+                  <p>{ bannerData.content }</p>
+                  <a href={ bannerData.url_link }>{ banner.url_title }</a>
+                </div>
+              )
+            })
+          }
         </div>
       </BannerModal>
       <Overlay id="overlay" />
