@@ -69,6 +69,14 @@ const BannerModal = styled.section`
   height: 100%;
   background-color: #fff;
 
+  &.banner-open {
+    display: block;
+  }
+
+  &.banner-close {
+    display: none;
+  }
+
   .banner-modal-close-button-wrapper {
     display: flex;
     justify-content: flex-end;
@@ -179,6 +187,7 @@ const BannerModal = styled.section`
 `;
 
 const Overlay = styled.div`
+  display: block;
   z-index: 999;
   position: fixed;
   top: 0;
@@ -188,23 +197,31 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+
+  &.close {
+    display: none;
+  }
 `;
 
 const Banner = () => {
   const [banner] = useState(BannerData);
+  const [bannerToggle, setBannerToggle] = useState(false);
+  const bannerHandler = () => {
+    setBannerToggle(!bannerToggle);
+  };
   
   return (
     <>
-      <Container id="banner" className="banner" role="banner">
+      <Container id="banner" className="banner" role="banner" onClick={ bannerHandler }>
         <h1 className="banner-title" aria-label="배너 내용">
-          { banner[0].title }
+          { banner[0].title }                
         </h1>
         <div className="banner-icon-more" aria-label="더보기 아이콘">
           <img src={ IconMoreDown } alt="더보기 아이콘" />
         </div>
       </Container>
-      <BannerModal id="banner-modal" className="banner-modal">
-        <div className="banner-modal-close-button-wrapper">
+      <BannerModal id="banner-modal" className={`banner-modal ${bannerToggle ? "banner-open" : "banner-close"}`}>
+        <div className="banner-modal-close-button-wrapper" onClick={ bannerHandler }>
           <button type="button" className="banner-modal-close-button" aria-label="모달 닫기 버튼">
             <img src={IconCloseButton} alt="모달 닫기 버튼" />
           </button>
@@ -223,7 +240,7 @@ const Banner = () => {
           }
         </div>
       </BannerModal>
-      <Overlay id="overlay" />
+      <Overlay id="overlay" className={ bannerToggle ? null : "close" } onClick  ={ bannerHandler } />
     </>
   );
 }
