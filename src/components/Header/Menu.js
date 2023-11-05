@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 // > icons
 import IconMenu from '../../assets/icons/icon_menu_mobile.svg';
@@ -7,6 +7,8 @@ import IconAdidasLogo from '../../assets/icons/icon_adidas_logo.png';
 import IconPerson from '../../assets/icons/icon_person.svg';
 import IconSearch from '../../assets/icons/icon_search.svg';
 import IconBasket from '../../assets/icons/icon_shopping_basket.svg';
+// > component
+import SideMenu from './SideMenu';
 
 const Container = styled.header`
   display: flex;
@@ -272,6 +274,11 @@ const HeaderBottomPc = styled.div`
 `;
 
 const Menu = () => {
+  const [sideOpen, setSideOpen] = useState(false);
+  const sideMenuHandler = () => {
+    setSideOpen(!sideOpen);
+  };
+
   return (
     <>
       <Container id="header" className="header">
@@ -291,7 +298,7 @@ const Menu = () => {
         </HeaderTop>
         <HeaderBottomMobile className="header-bottom header-bottom-mobile">
           <div className="header-bottom-left">
-            <button type="button" aria-label="메뉴 열기">
+            <button type="button" aria-label="메뉴 열기" onClick={ sideMenuHandler }>
               <img src={ IconMenu } alt="모바일 메뉴바 아이콘" />
             </button>
             <a href="/" aria-label="관심목록으로 이동">
@@ -358,6 +365,7 @@ const Menu = () => {
           </div>
         </HeaderBottomPc>
       </Container>
+      <SideMenu sideOpen={ sideOpen } sideMenuHandler={ sideMenuHandler } />
     </>
   );
 }

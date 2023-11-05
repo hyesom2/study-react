@@ -21,6 +21,11 @@ const Container = styled.section`
   height: 100%;
   background-color: #fff;
   transform: translateX(-100%);
+  transition: all 0.5s ease-in-out;
+
+  &.open {
+    transform: translateX(0);
+  }
 
   @media (min-width: 960px) {
     display: none;
@@ -161,17 +166,17 @@ const SideMenuFooter = styled.footer`
   }
 `;
 
-const SideMenu = () => {
+const SideMenu = (props) => {
   return (
     <>
-      <Container>
+      <Container className={ props.sideOpen === true ? "open" : null }>
         <SideMenuHeader>
           <h1 className="logo">
             <a href="/">
               <img src={ IconAdidasLogo } alt="아디다스 로고 아이콘" />
             </a>
           </h1>
-          <button type="button" className="side-close" aria-label="닫기 버튼">
+          <button type="button" className="side-close" aria-label="닫기 버튼" onClick={ props.sideMenuHandler }>
             <img src={ IconCloseButton } alt="닫기 버튼" />
           </button>
         </SideMenuHeader>
