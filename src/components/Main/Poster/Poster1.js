@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import IconArrowRight from '../../../assets/icons/icon_arrow_right.svg';
 // > images
 import MobileBg from '../../../assets/images/poster1_mobile.png';
+import PcBg from '../../../assets/images/poster1_pc.png';
 
 const Container = styled.section`
   position: relative;
@@ -11,6 +12,10 @@ const Container = styled.section`
 	height : 0;
 	padding-bottom : calc(800 / 600 * 100%);
   min-height: 30vh;
+
+  @media (min-width: 960px) {
+    padding-bottom : calc(853 / 1920 * 100%);
+  }
 `;
 
 const BackImg = styled.div`
@@ -24,7 +29,12 @@ const BackImg = styled.div`
   background-image: url('${MobileBg}');
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: contain;
+
+  @media (min-width: 960px) {
+    background-image: url('${PcBg}');
+    background-size: contain;
+  }
 `;
 
 const Content = styled.div`
@@ -33,11 +43,11 @@ const Content = styled.div`
   bottom: 0;
   width: 100%;
   height: 100%;
-  padding: 20px 15px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
+  padding: 20px 15px;
   
   .content-top {
     color: #fff;
@@ -98,6 +108,18 @@ const Content = styled.div`
 
   @media (min-width: 600px) {
     width: 50%;
+  }
+  @media (min-width: 960px) {
+    justify-content: center;
+    padding: 40px 15px 60px 15px;
+    width: 420px;
+
+    .content-top {
+      h1 {
+        font-size: 40px;
+        line-height: 40px;
+      }
+    }
   }
 `;
 
