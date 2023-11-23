@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Poster1 from './components/Main/Poster/Poster1';
 import Product from './components/Main/Product/Product';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Poster1 />
         <Product />
       </Main>
+      <Footer />
     </>
   );
 }
