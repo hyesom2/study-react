@@ -26,7 +26,48 @@ const Etc = styled.ul`
 `;
 
 const FooterBottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #282c31;
+  padding: 15px 0;
+  border-top: 1px solid #767677;
 
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    color: #d3d7da;
+    padding: 15px;
+
+    &:last-child {
+      width: 100%;
+    }
+
+    a {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 15px 0px 15px;
+
+    span {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      color: #d3d7da;
+    }
+  }
 `;
 
 const Footer = () => {
