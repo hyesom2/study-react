@@ -14,7 +14,18 @@ const ToTopButton = styled.button`
 `;
 
 const FooterMenu = styled.ul`
-
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #000;
+  
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 10px 15px;
+    color: #fff;
+  }
 `;
 
 const FooterAccount = styled.div``;
@@ -22,7 +33,27 @@ const FooterAccount = styled.div``;
 const FooterMembership = styled.div``;
 
 const Etc = styled.ul`
+  padding: 20px 15px;
+  background-color: #000;
+  border-top: 1px solid #767677;
 
+  li {
+    display: inline;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #fff;
+
+    &::after {
+      content: '|';
+      margin: 0 3px;
+    }
+    &:last-child {
+      &::after {
+        content: '';
+      }
+    }
+  }
 `;
 
 const FooterBottom = styled.div`
