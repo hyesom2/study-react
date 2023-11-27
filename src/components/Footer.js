@@ -209,6 +209,12 @@ const FooterBottom = styled.div`
 `;
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scroll({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
   return (
     <>
       <Container id="footer">
@@ -223,7 +229,7 @@ const Footer = () => {
             </a>
           </div>
         </FooterFeedback>
-        <ToTopButton type="button" aria-label="위로가기 버튼">
+        <ToTopButton type="button" onClick={scrollToTop} aria-label="위로가기 버튼">
           <img src={ IconArrowUp } alt="" />
           <span>
             BACK TO TOP
