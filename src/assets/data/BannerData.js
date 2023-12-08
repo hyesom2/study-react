@@ -4,7 +4,7 @@ const BannerData =[
     title: "가입/로그인/배송지 입력 안내",
     content: "아디다스 앱 카카오 로그인이 런칭 되었습니다. 이제 앱에서도 간편한 소셜 로그인을 만나보세요! *해외 계정으로 회원 가입시 오류가 발생할 수 있으며, 로그인 오류 및 배송지 입력 기준은 아래 링크를 통해 확인해 주세요.",
     url_title: "가입/로그인/배송지 입력 기준 자세히 보기",
-    url_link: "2https://www.adidas.co.kr/help/kr-adiclub-newsletter/guide-for-signup-login-shipping-address",
+    url_link: "https://www.adidas.co.kr/help/kr-adiclub-newsletter/guide-for-signup-login-shipping-address",
   },
   {
     id: 1,
