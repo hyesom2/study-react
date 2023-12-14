@@ -20,7 +20,7 @@ const Container = styled.section`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: ${({theme}) => theme.colors.white};
   transform: translateX(-100%);
   transition: all 0.5s ease-in-out;
@@ -171,8 +171,8 @@ const SideMenu = (props) => {
         <SideMenuContent>
           <ul className="side-content-top">
             {
-              sideMenuTopData.map((data, i) => (
-                <li className="side-item" key={i}>
+              sideMenuTopData.map((data) => (
+                <li className="side-item" key={data.id}>
                   <button type="button" aria-label={ data.des }>
                     <span className={ data.name }>{ data.name }</span>
                     <IconArrowRight2 width={16} height={16} fill="#000" />
