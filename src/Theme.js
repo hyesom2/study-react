@@ -3,6 +3,8 @@ const theme = {
   colors: {
     black: '#000',
     white: '#fff',
+    border: '#eceff1',
+    alert: '#ffd200',
   },
 
   // ${({ theme }) => theme.fs.size};
@@ -14,7 +16,7 @@ const theme = {
 
   // ${({ theme }) => theme.margin.size};
   margin: {
-    10: '10px',
+    10: '10',
   }
 }
 
