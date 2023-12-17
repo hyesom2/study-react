@@ -5,6 +5,7 @@ const theme = {
     white: '#fff',
     border: '#eceff1',
     alert: '#ffd200',
+    hover: '#767677',
   },
 
   // ${({ theme }) => theme.fs.size};
