@@ -1,153 +1,159 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-// > icons, images
-import WishHeart from '../../../assets/icons/icon_heart.svg';
-import ProductImg0 from '../../../assets/images/product/product0.png';
-import ProductImg1 from '../../../assets/images/product/product1.png';
+// > icons
+import { ReactComponent as WishHeart } from '../../../assets/icons/icon_heart.svg';
 
 const Container = styled.section`
+  width: 100%;
   margin-bottom: 40px;
+  padding: 0 30px;
 `;
 
 const Content = styled.div`
-  margin: 0 30px;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+`;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  .content-top {
-    width: 100%;
-    margin-bottom: 32px;
-    
-    .button-group {
-      display: flex;
-      margin-bottom: 16px;
-      overflow-x: scroll;
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-
-      &::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera*/
-      }
-
-      .button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: max-content;
-        height: 44px;
-        padding: 12px;
-        border: 1px solid #000;
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 22px;
-        margin-right: 8px;
-        white-space: nowrap;
+const ContentTop = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 32px;
   
-        &:last-child {
-          margin-right: 0;
-        }
-        &:hover,
-        &:active {
-          background-color: #000;
-          color: #fff;
-        }
-      }
-      .button-active {
-        background-color: #000;
-        color: #fff;
-      }
+  .tab-button-group {
+    display: flex;
+    max-width: 100%;
+    margin-bottom: 16px;
+    overflow-x: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
     }
 
-    a {
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 24px;
-      text-decoration: underline;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: max-content;
+      height: 44px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 22px;
+      text-transform: uppercase;
+      padding: 12px;
+      margin-right: 8px;
+      white-space: nowrap;
+      border: 1px solid ${({theme}) => theme.colors.black};
+      transition: all 0.3s ease-in-out;
+
+      &.is-active {
+        color: ${({theme}) => theme.colors.white};
+        background-color: ${({theme}) => theme.colors.black};
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      &:hover {
+        color: ${({theme}) => theme.colors.white};
+        background-color: ${({theme}) => theme.colors.black};
+      }
+    }
+  }
+
+  a {
+    display: inline;
+    width: fit-content;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 24px;
+    white-space: nowrap;
+    text-decoration: underline;
+    color: ${({theme}) => theme.colors.black};
+    background-color: ${({theme}) => theme.colors.white};
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: ${({theme}) => theme.colors.white};
+      background-color: ${({theme}) => theme.colors.black};
     }
   }
 `;
 
-const Products = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+const ContentBottom = styled.div`
   width: 100%;
-  height: 100%;
+  display: flex;
   overflow-x: scroll;
+  padding-bottom: 32px;
 
   &::-webkit-scrollbar {
-    background-color: #eceff1;
     height: 4px;
+    background-color: ${({theme}) => theme.colors.border};
   }
   &::-webkit-scrollbar-thumb {
     background-color: #000;
   }
+`;
 
-  .product {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    height: 263px;
-    margin-right: 8px;
-    margin-bottom: 32px;
-
-    &:last-child {
-      margin-right: 0;
-    }
+const Card = styled.div`
+  margin-right: 8px;
+  
+  &:last-child {
+    margin-right: 0;
   }
 
-  .product-image {
+  .card-top {
     position: relative;
+    width: 163px;
+    height: 163px;
     margin-bottom: 10px;
 
+    a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
     img {
       display: block;
-      width: 163px;
-      height: 163px;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
     }
-    
     button {
       position: absolute;
       top: 0;
       right: 0;
       margin: 3px;
-      width: 24px;
-      height: 24px;
-      cursor: initial;
-
-      img {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
+    }
+    .price {
+      position: absolute;
+      left: 5px;
+      bottom: 0;
+      width: fit-content;
+      background-color: ${({theme}) => theme.colors.white};
+      color: ${({theme}) => theme.colors.black};
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 16px;
+      padding: 2px 5px;
+      transition: all 0.3s ease-in-out;
     }
 
-    strong {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      margin-left: 5px;
-      width: fit-content;
-      padding: 2px 5px;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 16px;
-      background-color: #fff;
-      transition: all 0.3s ease-in-out;
-
-      &:hover {
-        transform: translateY(-5px);
+    &:hover {
+      .price {
+        bottom: 3px;
       }
     }
   }
 
-  .product-content {
+  .card-bottom {
     padding-left: 10px;
 
     h2 {
@@ -155,227 +161,90 @@ const Products = styled.div`
       font-weight: 400;
       letter-spacing: 0;
       line-height: 16px;
+      color: ${({theme}) => theme.colors.black};
       margin-bottom: 5px;
     }
-
     p {
       font-size: 12px;
       font-weight: 400;
       letter-spacing: 0;
       line-height: 16px;
+      color: ${({theme}) => theme.colors.hover };
       text-transform: capitalize;
-      color: #767677;
-      margin-bottom: 5px;
-    }
-
-    span {
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0;
-      line-height: 16px;
     }
   }
 `;
 
-const Product = () => {
+const Product = ({ ProductDataTrend, ProductDataHoodies }) => {
+  const [TrendData] = useState(ProductDataTrend);
+  const [HoodiesData] = useState(ProductDataHoodies);
+  const [tab, setTab] = useState(0);
+  const tabHandler = (id) => {
+    setTab(id);
+  };
+
   return (
-    <>
-      <Container>
-        <Content>
-          <div className="content-top">
-            <div className="button-group">
-              <button type="button" className="button button-active">포근한 하루를 위한 패딩 소재 제품</button>
-              <button type="button" className="button">자주 손이 가는 후드티 🙌</button>
+    <Container>
+      <Content>
+        <ContentTop>
+          {
+            tab === 0
+            ?
+            <div className="tab-button-group">
+              <button type="button" className="is-active" onClick={ () => tabHandler(0)}>trend now 💫</button>
+              <button type="button" onClick={ () => tabHandler(1)}>자주 손이 가는 후드티 🙌</button>
             </div>
-            <a href="/">전체보기</a>
-          </div>
-          <Products className="content-bottom">
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg0 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>119,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>남성 originals White 퍼피렛</h2>
-                <p>남성 Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-            <a className="product" href="/">
-              <div className="product-image">
-                <img src={ ProductImg1 } alt="" />
-                <button type="button">
-                  <img src={ WishHeart } alt="" />
-                </button>
-                <strong>69,000<span>원</span></strong>
-              </div>
-              <div className="product-content">
-                <h2>Women originals Black 퍼피 새틴 숄더 백</h2>
-                <p>Women Originals</p>
-                <span className="new">New</span>
-              </div>
-            </a>
-          </Products>
-        </Content>
-      </Container>
-    </>
+            :
+            <div className="tab-button-group">
+              <button type="button" onClick={ () => tabHandler(0)}>trend now 💫</button>
+              <button type="button" className="is-active" onClick={ () => tabHandler(1)}>자주 손이 가는 후드티 🙌</button>
+            </div>
+          }
+          <a href={tab === 0 ? "https://www.adidas.co.kr/trend_now" : "https://www.adidas.co.kr/hoodies"}>전체보기</a>
+        </ContentTop>
+        <ContentBottom>
+        {
+            tab === 0
+            ?
+              TrendData && TrendData.map((data) => (
+                <Card key={ data.id }>
+                  <div className="card-top">
+                    <a href={ data.link }>
+                      <img src={ data.imageUrl } alt="" />
+                    </a>
+                    <button type="button">
+                      <WishHeart width={24} height={24} />
+                    </button>
+                    <span className="price">{ data.price } 원</span>
+                  </div>
+                  <div className="card-bottom">
+                    <h2>{ data.title }</h2>
+                    <p>{ data.category }</p>
+                  </div>
+                </Card>
+              ))
+            :
+              HoodiesData && HoodiesData.map((data) => (
+                <Card key={ data.id }>
+                  <div className="card-top">
+                    <a href={ data.link }>
+                      <img src={ data.imageUrl } alt="" />
+                    </a>
+                    <button type="button">
+                      <WishHeart width={24} height={24} />
+                    </button>
+                    <span className="price">{ data.price } 원</span>
+                  </div>
+                  <div className="card-bottom">
+                    <h2>{ data.title }</h2>
+                    <p>{ data.category }</p>
+                  </div>
+                </Card>
+              ))
+            }
+        </ContentBottom>
+      </Content>
+    </Container>
   );
 }
 
