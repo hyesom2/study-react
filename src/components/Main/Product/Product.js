@@ -7,6 +7,11 @@ const Container = styled.section`
   width: 100%;
   margin-bottom: 40px;
   padding: 0 30px;
+
+  @media (min-width: 600px) {
+    padding: 0 60px;
+  }
+  @media (min-width: 960px) {}
 `;
 
 const Content = styled.div`
@@ -23,6 +28,13 @@ const ContentTop = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 32px;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  @media (min-width: 960px) {}
   
   .tab-button-group {
     display: flex;
@@ -35,6 +47,11 @@ const ContentTop = styled.div`
     &::-webkit-scrollbar {
       display: none; /* Chrome, Safari, Opera*/
     }
+
+    @media (min-width: 600px) {
+      margin-bottom: 0;
+    }
+    @media (min-width: 960px) {}
 
     button {
       display: flex;
@@ -91,7 +108,7 @@ const ContentBottom = styled.div`
   width: 100%;
   display: flex;
   overflow-x: scroll;
-  padding-bottom: 32px;
+  padding-bottom: calc(32px + 4px);
 
   &::-webkit-scrollbar {
     height: 4px;
@@ -131,25 +148,75 @@ const Card = styled.div`
       right: 0;
       margin: 3px;
     }
-    .price {
+
+    .product-price {
       position: absolute;
       left: 5px;
       bottom: 0;
-      width: fit-content;
-      background-color: ${({theme}) => theme.colors.white};
-      color: ${({theme}) => theme.colors.black};
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0;
-      line-height: 16px;
-      padding: 2px 5px;
+      display: flex;
+      flex-direction: column;
       transition: all 0.3s ease-in-out;
+
+      .sale-percent {
+        width: fit-content;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 16px;
+        padding: 2px 5px;
+        background-color: ${({theme}) => theme.colors.white};
+        color: ${({theme}) => theme.colors.black};      
+        margin-bottom: 5px;
+      }
+
+      .price-wrapper {
+        display: flex;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 16px;
+        padding: 2px 5px;
+        background-color: ${({theme}) => theme.colors.white};
+        color: ${({theme}) => theme.colors.black};
+        
+        .price {
+          width: fit-content;
+          margin-right: 5px;
+
+          &.is-sale {
+            color: ${({theme}) => theme.colors.hover};
+            text-decoration: line-through;
+          }
+        }
+
+        .sale-price {
+          color: ${({theme}) => theme.colors.discount};
+        }
+      }
     }
 
     &:hover {
-      .price {
+      .product-price {
         bottom: 3px;
       }
+    }
+
+    @media (min-width: 600px) {
+      width: 316px;
+      height: 316px;
+
+      .product-price {
+        .sale-percent {
+          font-size: 16px;
+        }
+      }
+      .price, .sale-price {
+        font-size: 16px;
+      }
+    }
+    @media (min-width: 960px) {
+      width: 208px;
+      height: 208px;
     }
   }
 
@@ -172,6 +239,14 @@ const Card = styled.div`
       color: ${({theme}) => theme.colors.hover };
       text-transform: capitalize;
     }
+
+    @media (min-width: 600px) {
+      h2, p {
+        font-size: 16px;
+        line-height: 22px;
+      }
+    }
+    @media (min-width: 960px) {}
   }
 `;
 
@@ -208,19 +283,41 @@ const Product = ({ ProductDataTrend, ProductDataHoodies }) => {
             ?
               TrendData && TrendData.map((data) => (
                 <Card key={ data.id }>
-                  <div className="card-top">
-                    <a href={ data.link }>
-                      <img src={ data.imageUrl } alt="" />
-                    </a>
-                    <button type="button">
-                      <WishHeart width={24} height={24} />
-                    </button>
-                    <span className="price">{ data.price } 원</span>
-                  </div>
-                  <div className="card-bottom">
-                    <h2>{ data.title }</h2>
-                    <p>{ data.category }</p>
-                  </div>
+                  <a href={ data.link }>
+                    <div className="card-top">
+                      <a href={ data.link }>
+                        <img src={ data.imageUrl } alt="" />
+                      </a>
+                      <button type="button">
+                        <WishHeart width={24} height={24} />
+                      </button>
+                      <div className="product-price">
+                        {
+                          data.salePercent > 0
+                          ?
+                          <span className="sale-percent">{ data.salePercent }</span>
+                          :
+                          null
+                        }
+                        {
+                          data.discountPrice === ""
+                          ?
+                          <div className="price-wrapper">
+                            <span className="price">{ data.price }원</span>
+                          </div>
+                          :
+                          <div className="price-wrapper">
+                            <span className="price is-sale">{ data.price }원</span>
+                            <span className="sale-price">{ data.discountPrice }원</span>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                    <div className="card-bottom">
+                      <h2>{ data.title }</h2>
+                      <p>{ data.category }</p>
+                    </div>
+                  </a>
                 </Card>
               ))
             :
@@ -233,7 +330,27 @@ const Product = ({ ProductDataTrend, ProductDataHoodies }) => {
                     <button type="button">
                       <WishHeart width={24} height={24} />
                     </button>
-                    <span className="price">{ data.price } 원</span>
+                    <div className="product-price">
+                        {
+                          data.salePercent > 0
+                          ?
+                          <span className="sale-percent">-{ data.salePercent } %</span>
+                          :
+                          null
+                        }
+                        {
+                          data.discountPrice === ""
+                          ?
+                          <div className="price-wrapper">
+                            <span className="price">{ data.price }원</span>
+                          </div>
+                          :
+                          <div className="price-wrapper">
+                            <span className="price is-sale">{ data.price }원</span>
+                            <span className="sale-price">{ data.discountPrice }원</span>
+                          </div>
+                        }
+                    </div>
                   </div>
                   <div className="card-bottom">
                     <h2>{ data.title }</h2>

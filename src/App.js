@@ -7,6 +7,8 @@ import Product from './components/Main/Product/Product';
 import Carousel from './components/Main/Carousel/Carousel';
 import Explanation from './components/Main/Explanation';
 import Footer from './components/Footer';
+// > data
+import { ProductDataTrend, ProductDataHoodies }from './assets/data/ProductData';
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
       <Header />
       <Main>
         <Poster />
+        <Product ProductDataTrend={ ProductDataTrend } ProductDataHoodies={ ProductDataHoodies } />
+        <Carousel />
         <Product />
         <Carousel />
         <Explanation />
