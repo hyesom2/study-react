@@ -70,6 +70,10 @@ const ContentTop = styled.div`
       border: 1px solid ${({theme}) => theme.colors.black};
       transition: all 0.3s ease-in-out;
 
+      &.best-button {
+        text-transform: none;
+      }
+
       &.is-active {
         color: ${({theme}) => theme.colors.white};
         background-color: ${({theme}) => theme.colors.black};
@@ -195,7 +199,7 @@ const Card = styled.div`
       }
     }
 
-    &:hover {      
+    &:hover {
       .product-price {
         bottom: 3px;
       }
@@ -254,9 +258,10 @@ const Card = styled.div`
   }
 `;
 
-const Product = ({ ProductDataTrend, ProductDataHoodies }) => {
-  const [TrendData] = useState(ProductDataTrend);
-  const [HoodiesData] = useState(ProductDataHoodies);
+const ProductList = ({ ProductDataOuter, ProductDataAcc, ProductDataBest }) => {
+  const [TrendData] = useState(ProductDataOuter);
+  const [AccData] = useState(ProductDataAcc);
+  const [BestData] = useState(ProductDataBest);
   const [tab, setTab] = useState(0);
   const tabHandler = (id) => {
     setTab(id);
@@ -267,17 +272,27 @@ const Product = ({ ProductDataTrend, ProductDataHoodies }) => {
       <Content>
         <ContentTop>
           {
-            tab === 0
+            tab === 0 
             ?
             <div className="tab-button-group">
-              <button type="button" className="is-active" onClick={ () => tabHandler(0)}>trend now 💫</button>
-              <button type="button" onClick={ () => tabHandler(1)}>자주 손이 가는 후드티 🙌</button>
+              <button type="button" className="is-active" onClick={ () => tabHandler(0)}>차가워진 공기를 맞이하는 아우터 ❄️</button>
+              <button type="button" onClick={ () => tabHandler(1)}>겨울을 맞이하는 액세서리</button>
+              <button type="button" className="best-button" onClick={ () => tabHandler(2)}>Best of adidas🔥</button>
             </div>
             :
-            <div className="tab-button-group">
-              <button type="button" onClick={ () => tabHandler(0)}>trend now 💫</button>
-              <button type="button" className="is-active" onClick={ () => tabHandler(1)}>자주 손이 가는 후드티 🙌</button>
-            </div>
+              tab === 1
+              ?
+              <div className="tab-button-group">
+                <button type="button" onClick={ () => tabHandler(0)}>차가워진 공기를 맞이하는 아우터 ❄️</button>
+                <button type="button" className="is-active" onClick={ () => tabHandler(1)}>겨울을 맞이하는 액세서리</button>
+                <button type="button" className="best-button" onClick={ () => tabHandler(2)}>Best of adidas🔥</button>
+              </div>
+              :
+              <div className="tab-button-group">
+                <button type="button" onClick={ () => tabHandler(0)}>차가워진 공기를 맞이하는 아우터 ❄️</button>
+                <button type="button" onClick={ () => tabHandler(1)}>겨울을 맞이하는 액세서리</button>
+                <button type="button"className="best-button is-active" onClick={ () => tabHandler(2)}>Best of adidas🔥</button>
+              </div>
           }
           <a href={tab === 0 ? "https://www.adidas.co.kr/trend_now" : "https://www.adidas.co.kr/hoodies"}>전체보기</a>
         </ContentTop>
@@ -325,7 +340,47 @@ const Product = ({ ProductDataTrend, ProductDataHoodies }) => {
                 </Card>
               ))
             :
-              HoodiesData && HoodiesData.map((data) => (
+              tab === 1
+              ?
+              AccData && AccData.map((data) => (
+                <Card key={ data.id }>
+                  <div className="card-top">
+                    <a href={ data.link }>
+                      <img src={ data.imageUrl } alt="" />
+                    </a>
+                    <button type="button">
+                      <WishHeart width={24} height={24} />
+                    </button>
+                    <div className="product-price">
+                        {
+                          data.salePercent > 0
+                          ?
+                          <span className="sale-percent">-{ data.salePercent } %</span>
+                          :
+                          null
+                        }
+                        {
+                          data.discountPrice === ""
+                          ?
+                          <div className="price-wrapper">
+                            <span className="price">{ data.price }원</span>
+                          </div>
+                          :
+                          <div className="price-wrapper">
+                            <span className="price is-sale">{ data.price }원</span>
+                            <span className="sale-price">{ data.discountPrice }원</span>
+                          </div>
+                        }
+                    </div>
+                  </div>
+                  <div className="card-bottom">
+                    <h2>{ data.title }</h2>
+                    <p>{ data.category }</p>
+                  </div>
+                </Card>
+              ))
+              :
+              BestData && BestData.map((data) => (
                 <Card key={ data.id }>
                   <div className="card-top">
                     <a href={ data.link }>
@@ -369,4 +424,4 @@ const Product = ({ ProductDataTrend, ProductDataHoodies }) => {
   );
 }
 
-export default Product;
+export default ProductList;
