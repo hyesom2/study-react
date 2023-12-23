@@ -3,15 +3,13 @@ import styled from 'styled-components';
 // > data
 import BlogData from './BlogData';
 
-// > fix : 자세히보기 라인을 맞추고 싶다..
-
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
-  min-height: 490px;
   padding: 0 32px;
+  margin-bottom: 40px;
   overflow-x: scroll;
 
   -ms-overflow-style: none; /* IE and Edge */
@@ -25,7 +23,7 @@ const Container = styled.div`
     padding: 0 64px;
   }
   @media (min-width: 960px) {
-    margin: 0 auto;
+    // margin: 0 auto;
     margin-bottom: 80px;
   }
 `;
@@ -37,16 +35,21 @@ const Card = styled.div`
   align-items: flex-start;
   width: 100%;
   height: 100%;
-  margin-right: 10px;
-  margin-bottom: 40px;
+  margin-right: 20px;
 
   &:last-child {
     margin-right: 0;
   }
-  
+
+  .link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   img {
     display: block;
-    width: 267px;
+    width: 265px;
     height: 355px;
     margin-bottom: 10px;
   }
@@ -54,45 +57,44 @@ const Card = styled.div`
   .content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-start;
-    width: 100%;
     height: 100%;
+    flex: 1 1;
 
     h1 {
-      color: #000;
+      text-overflow: ellipsis;
+      overflow: hidden;
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 0;
       line-height: 22px;
-      text-overflow: ellipsis;
-      overflow: hidden;
+      text-transform: uppercase;
       margin-bottom: 10px;
     }
-
+    
     p {
-      color: #000;
       font-size: 13px;
-      font-weight: 400;
       letter-spacing: 0;
       line-height: 17px;
-      margin-bottom: 16px;
+      white-space: normal;
+      margin-bottom: 15px;
     }
 
-    button {
-      display: flex;
-      align-items: flex-end;
-      flex-grow: 1;
-      flex-shrink: 1;
+    .link-more {
+      background-color: ${({theme}) => theme.colors.white};
+      color: ${({theme}) => theme.colors.black};
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      line-height: 20px;
+      text-transform: uppercase;
+      text-decoration: underline;
+      transition: all 0.3s ease-in-out;
       
-      a {
-        color: #000;
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        line-height: 20px;
-        text-transform: uppercase;
-        text-decoration: underline;
+      &:hover {
+        background-color: ${({theme}) => theme.colors.black};
+        color: ${({theme}) => theme.colors.white};
       }
     }
   }
@@ -105,16 +107,16 @@ const Carousel = () => {
     <>
       <Container>
         {
-          data.map((cardData, i) => (
-            <Card key={i}>
-              <img src={ cardData.image } alt="" />
-              <div className="content">
-                <h1>{ cardData.title }</h1>
-                <p>{ cardData.content }</p>
-                <button>
-                  <a href={ cardData.url }>자세히 보기</a>
-                </button>
-              </div>
+          data.map((cardData) => (
+            <Card key={ cardData.id }>
+              <a href={ cardData.link } className="link">
+                <img src={ cardData.imgUrl } alt={ cardData.title } />
+                <div className="content">
+                  <h1>{ cardData.title }</h1>
+                  <p>{ cardData.content }</p>
+                  <a href={ cardData.link } className="link-more">지금 구매하기</a>
+                </div>
+              </a>
             </Card>
           ))
         }
