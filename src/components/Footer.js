@@ -1,7 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import IconArrowUp from '../assets/icons/icon_arrow_up.svg';
-import IconArrowRight from '../assets/icons/icon_arrow_right_white.svg';
+// > icons
+import { ReactComponent as IconArrowUp } from '../assets/icons/icon_arrow_up.svg';
+import { ReactComponent as IconArrowRight } from '../assets/icons/icon_arrow_right_white.svg';
+import { ReactComponent as IconFacebook } from '../assets/icons/icon_facebook.svg';
+import { ReactComponent as IconInstagram } from '../assets/icons/icon_instagram.svg';
+import { ReactComponent as IconTwitter } from '../assets/icons/icon_twitter.svg';
+import { ReactComponent as IconPinterest } from '../assets/icons/icon_pinterest.svg';
+import { ReactComponent as IconTiktok } from '../assets/icons/icon_tiktok.svg';
+import { ReactComponent as IconYoutube } from '../assets/icons/icon_youtube.svg';
 
 const Container = styled.footer`
   display: flex;
@@ -9,11 +16,11 @@ const Container = styled.footer`
 `;
 
 const FooterFeedback = styled.div`
-  background-color: #eceff1;
+  background-color: ${({theme}) => theme.colors.border};
   padding: 20px;
 
   h1 {
-    color: #000;
+    color: ${({theme}) => theme.colors.black};
     font-size: 18px;
     font-weight: 700;
     letter-spacing: 1px;
@@ -23,7 +30,7 @@ const FooterFeedback = styled.div`
   }
 
   p, .feedback-link {
-    color: #000;
+    color: ${({theme}) => theme.colors.black};
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0;
@@ -34,6 +41,10 @@ const FooterFeedback = styled.div`
     margin-top: 15px;
     text-decoration: underline;
   }
+
+  @media (min-width: 960px) {
+    display: none;
+  }
 `;
 
 const ToTopButton = styled.button`
@@ -42,18 +53,16 @@ const ToTopButton = styled.button`
   align-items: center;
   padding: 10px;
 
-  img {
-    display: block;
-    width: 16px;
-    height: 16px;
-    margin-right: 10px;
-  }
-
   span {
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
     line-height: 20px;
+    margin-left: 10px;
+  }
+
+  @media (min-width: 960px) {
+    display: none;
   }
 `;
 
@@ -62,15 +71,19 @@ const FooterAccount = styled.div`
   justify-content: space-around;
   align-items: center;
   padding: 15px;
-  background-color: #000;
+  background-color: ${({theme}) => theme.colors.black};
 
   a {
-    color: #fff;
+    color: ${({theme}) => theme.colors.white};
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0;
     line-height: 20px;
     text-transform: uppercase;
+  }
+
+  @media (min-width: 960px) {
+    display: none;
   }
 `;
 
@@ -79,7 +92,7 @@ const FooterMembership = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ede734;
+  background-color: ${({theme}) => theme.colors.highlight};
   padding: 40px;
   text-align: center;
 
@@ -104,27 +117,25 @@ const FooterMembership = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000;
+    background-color: ${({theme}) => theme.colors.black};
     height: 50px;
     padding: 0 15px;
     transition: all 0.3s ease-in-out;
 
+    &:hover {
+      span {
+        color: ${({theme}) => theme.colors.hover};
+      }
+      
+      // ! hover시 .right-arrow 도 hover 되도록
+    }
+
     span {
-      color: #fff;
+      color: ${({theme}) => theme.colors.white};
       font-size: 16px;
       font-weight: 700;
       letter-spacing: 2px;
-      lien-height: 20px;
-    }
-
-    img {
-      display: block;
-      width: 40px;
-      height: 30px;
-    }
-
-    &:hover {
-      opacity: 0.7;
+      line-height: 20px;
     }
 
     &::after {
@@ -134,22 +145,78 @@ const FooterMembership = styled.div`
       content: '';
       width: 142px;
       height: 50px;
-      border: 1px solid #000;
+      border: 1px solid ${({theme}) => theme.colors.black};
+    }
+  }
+`;
+
+const FooterMenu = styled.ul`
+  display: flex;
+  width: 100%;
+  max-width: 1010px;
+  margin: 0 auto;
+  padding-top: 20px;
+  
+  .footer-menu-item {
+    flex-basis: 100%;
+    padding: 20px 15px 30px 15px;
+    text-align: left;
+
+    h5 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 24px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+  }
+
+  .menu-list {
+
+  }
+  .menu-list-item {
+
+    a {
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 24px;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    .icon-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 25px;
+      height: 25px;
+      background-color: ${({theme}) => theme.colors.black};
+      border-radius: 50%;
+      margin-bottom: 8px;
     }
   }
 `;
 
 const Etc = styled.ul`
+  width: 100%;
   padding: 20px 15px;
-  background-color: #000;
-  border-top: 1px solid #767677;
+  background-color: ${({theme}) => theme.colors.black};
+  border-top: 1px solid  ${({theme}) => theme.colors.hover};
 
   li {
     display: inline;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-    color: #fff;
+    color: ${({theme}) => theme.colors.white};
 
     &::after {
       content: '|';
@@ -161,14 +228,26 @@ const Etc = styled.ul`
       }
     }
   }
+
+  @media (min-width: 960px) {
+    max-width: 1010px;
+    background-color: ${({theme}) => theme.colors.white};
+    border-top: none;
+    margin: 0 auto;
+    padding: 15px;
+
+    li {
+      color: ${({theme}) => theme.colors.black};
+    }
+  }
 `;
 
 const FooterBottom = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #282c31;
+  background-color: ${({theme}) => theme.colors.footer};
   padding: 15px 0;
-  border-top: 1px solid #767677;
+  border-top: 1px solid ${({theme}) => theme.colors.hover};
 
   ul {
     display: flex;
@@ -180,8 +259,8 @@ const FooterBottom = styled.div`
     justify-content: center;
     align-items: center;
     width: 50%;
-    color: #d3d7da;
-    padding: 15px;
+    color: ${({theme}) => theme.colors.gray};
+    padding: 15px 0 15px 15px;
 
     &:last-child {
       width: 100%;
@@ -203,7 +282,30 @@ const FooterBottom = styled.div`
       font-size: 12px;
       font-weight: 500;
       line-height: 16px;
-      color: #d3d7da;
+      color: ${({theme}) => theme.colors.gray};
+    }
+  }
+
+  @media (min-width: 960px) {
+    ul {
+      flex-wrap: nowrap;
+      margin: 0 auto;
+    }
+
+    li {
+      width: auto;
+
+      &::after {
+        content: '|';
+        margin-left: 15px;
+      }
+      &:last-child::after {
+        content: '';
+      }
+    }
+
+    a {
+      white-space: nowrap;
     }
   }
 `;
@@ -215,6 +317,7 @@ const Footer = () => {
       behavior: 'smooth'
     });
   }
+
   return (
     <>
       <Container id="footer">
@@ -223,14 +326,14 @@ const Footer = () => {
           <p>
             피드백 감사드립니다. 더 나은 서비스를 위해 노력하겠습니다.
           </p>
-          <div className="feedback-link" aria-label="설문 링크">
+          {/* <div className="feedback-link" aria-label="설문 링크">
             <a href="/">
               금방 끝납니다. 설문에 참여해주세요
             </a>
-          </div>
+          </div> */}
         </FooterFeedback>
-        <ToTopButton type="button" onClick={scrollToTop} aria-label="위로가기 버튼">
-          <img src={ IconArrowUp } alt="" />
+        <ToTopButton type="button" onClick={ scrollToTop } aria-label="위로가기 버튼">
+          <IconArrowUp width={16} height={16} fill="#000" aria-hidden />
           <span>
             BACK TO TOP
           </span>
@@ -246,9 +349,191 @@ const Footer = () => {
             <span>
               회원가입
             </span>
-            <img src={ IconArrowRight } alt="이동하기 버튼" aria-hidden />
+            <IconArrowRight className="right-arrow" width={40} height={30} fill="#fff" aria-hidden />
           </button>
         </FooterMembership>
+        <FooterMenu>
+          <li className="footer-menu-item">
+            <h5>products</h5>
+            <ul className="menu-list">
+              <li className="menu-list-item">
+                <a href="/">
+                  신상품
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  공식 아울렛
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li className="footer-menu-item">
+            <h5>sports</h5>
+            <ul className="menu-list">
+              <li className="menu-list-item">
+                <a href="/">
+                  러닝
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  트레이닝
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  아웃도어
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  축구
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  골프
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  요가
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  테니스
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  농구
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  스케이팅보딩
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  수영
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  사이클링
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li className="footer-menu-item">
+            <h5>company info</h5>
+            <ul className="menu-list">
+              <li className="menu-list-item">
+                <a href="/">
+                  회사소개
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  채용정보
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  아디다스 앱
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  컨펌드 앱
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  아디다스 블로그
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li className="footer-menu-item">
+            <h5>membership</h5>
+            <ul className="menu-list">
+              <li className="menu-list-item">
+                <a href="/">
+                  아디클럽
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  adidas Runners
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li className="footer-menu-item">
+            <h5>support</h5>
+            <ul className="menu-list">
+              <li className="menu-list-item">
+                <a href="/">
+                  고객센터, 심의수선
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  주문 / 배송 조회
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  FAQ
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/">
+                  구매 이용약관
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li className="footer-menu-item">
+            <h5>follow us</h5>
+            <ul className="menu-list">
+              <li className="menu-list-item">
+                <a href="/" className="icon-wrapper">
+                  <IconFacebook width={20} height={20} fill="#fff" className="icons" />
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/" className="icon-wrapper">
+                  <IconInstagram width={20} height={20} fill="#fff" className="icons" />
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/" className="icon-wrapper">
+                  <IconTwitter width={20} height={20} fill="#fff" className="icons" />
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/" className="icon-wrapper">
+                  <IconPinterest width={20} height={20} fill="#fff" className="icons" />
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/" className="icon-wrapper">
+                  <IconTiktok width={20} height={20} fill="#fff" className="icons" />
+                </a>
+              </li>
+              <li className="menu-list-item">
+                <a href="/" className="icon-wrapper">
+                  <IconYoutube width={20} height={20} fill="#fff" className="icons" />
+                </a>
+              </li>
+            </ul>
+          </li>
+        </FooterMenu>
         <Etc>
           <li>아디다스코리아(유)</li>
           <li>서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 23층 (06620)</li>
