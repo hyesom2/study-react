@@ -1,16 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.section`
   padding: 40px 30px 40px 30px;
-  background-color: #f5f5e5;
+  background-color: ${({theme}) => theme.colors.yellow_bright};
 
   @media (min-width: 600px) {
     padding: 40px 60px 40px 60px;
   }
   @media (min-width: 960px) {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
   }
 `;
@@ -43,6 +42,7 @@ const Paragraph = styled.div`
   @media (min-width: 600px) {
   }
   @media (min-width: 960px) {
+    width: 50%;
     padding: 0;
     margin-right: 40px;
     margin-bottom: 0;
