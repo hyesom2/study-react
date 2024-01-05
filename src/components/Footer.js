@@ -42,6 +42,8 @@ const FooterFeedback = styled.div`
     text-decoration: underline;
   }
 
+  @media (min-width: 600px) {
+  }
   @media (min-width: 960px) {
     display: none;
   }
@@ -150,14 +152,48 @@ const FooterMembership = styled.div`
   }
 `;
 
-const FooterMenu = styled.ul`
-  display: flex;
-  width: 100%;
-  max-width: 1010px;
-  margin: 0 auto;
-  padding-top: 20px;
+const FooterMobileMenu = styled.div`
+  background-color: ${({theme}) => theme.colors.black};
+
+  .footer-mobile-menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px 0;
+  }
+
+  .footer-mobile-menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 10px 15px;
+
+    a {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 16px;
+      color: ${({theme}) => theme.colors.white};
+    }
+  }
+
+  @media (min-width: 600px) {}
+  @media (min-width: 960px) {
+    display: none;
+  }
+`;
+
+const FooterPcMenu = styled.div`
+  .footer-pc-menu-list {
+    display: none;
+    width: 100%;
+    max-width: 1010px;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
   
-  .footer-menu-item {
+  .footer-pc-menu-item {
     flex-basis: 100%;
     padding: 20px 15px 30px 15px;
     text-align: left;
@@ -172,11 +208,7 @@ const FooterMenu = styled.ul`
     }
   }
 
-  .menu-list {
-
-  }
   .menu-list-item {
-
     a {
       display: block;
       font-size: 14px;
@@ -203,13 +235,22 @@ const FooterMenu = styled.ul`
       margin-bottom: 8px;
     }
   }
+
+  @media (min-width: 600px) {}
+  @media (min-width: 960px) {
+    .footer-pc-menu-list {
+      display: flex;
+    }
+  }
 `;
 
-const Etc = styled.ul`
-  width: 100%;
-  padding: 20px 15px;
-  background-color: ${({theme}) => theme.colors.black};
-  border-top: 1px solid  ${({theme}) => theme.colors.hover};
+const Etc = styled.div`
+  ul {
+    width: 100%;
+    padding: 20px 15px;
+    background-color: ${({theme}) => theme.colors.black};
+    border-top: 1px solid  ${({theme}) => theme.colors.hover};
+  }
 
   li {
     display: inline;
@@ -229,12 +270,15 @@ const Etc = styled.ul`
     }
   }
 
+  @media (min-width: 600px) {}
   @media (min-width: 960px) {
-    max-width: 1010px;
-    background-color: ${({theme}) => theme.colors.white};
-    border-top: none;
-    margin: 0 auto;
-    padding: 15px;
+    ul {
+      max-width: 1010px;
+      background-color: ${({theme}) => theme.colors.white};
+      border-top: none;
+      margin: 0 auto;
+      padding: 15px;
+    }
 
     li {
       color: ${({theme}) => theme.colors.black};
@@ -352,198 +396,236 @@ const Footer = () => {
             <IconArrowRight className="right-arrow" width={40} height={30} fill="#fff" aria-hidden />
           </button>
         </FooterMembership>
-        <FooterMenu>
-          <li className="footer-menu-item">
-            <h5>products</h5>
-            <ul className="menu-list">
-              <li className="menu-list-item">
-                <a href="/">
-                  신상품
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  공식 아울렛
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li className="footer-menu-item">
-            <h5>sports</h5>
-            <ul className="menu-list">
-              <li className="menu-list-item">
-                <a href="/">
-                  러닝
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  트레이닝
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  아웃도어
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  축구
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  골프
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  요가
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  테니스
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  농구
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  스케이팅보딩
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  수영
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  사이클링
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li className="footer-menu-item">
-            <h5>company info</h5>
-            <ul className="menu-list">
-              <li className="menu-list-item">
-                <a href="/">
-                  회사소개
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  채용정보
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  아디다스 앱
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  컨펌드 앱
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  아디다스 블로그
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li className="footer-menu-item">
-            <h5>membership</h5>
-            <ul className="menu-list">
-              <li className="menu-list-item">
-                <a href="/">
-                  아디클럽
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  adidas Runners
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li className="footer-menu-item">
-            <h5>support</h5>
-            <ul className="menu-list">
-              <li className="menu-list-item">
-                <a href="/">
-                  고객센터, 심의수선
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  주문 / 배송 조회
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  FAQ
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/">
-                  구매 이용약관
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li className="footer-menu-item">
-            <h5>follow us</h5>
-            <ul className="menu-list">
-              <li className="menu-list-item">
-                <a href="/" className="icon-wrapper">
-                  <IconFacebook width={20} height={20} fill="#fff" className="icons" />
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/" className="icon-wrapper">
-                  <IconInstagram width={20} height={20} fill="#fff" className="icons" />
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/" className="icon-wrapper">
-                  <IconTwitter width={20} height={20} fill="#fff" className="icons" />
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/" className="icon-wrapper">
-                  <IconPinterest width={20} height={20} fill="#fff" className="icons" />
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/" className="icon-wrapper">
-                  <IconTiktok width={20} height={20} fill="#fff" className="icons" />
-                </a>
-              </li>
-              <li className="menu-list-item">
-                <a href="/" className="icon-wrapper">
-                  <IconYoutube width={20} height={20} fill="#fff" className="icons" />
-                </a>
-              </li>
-            </ul>
-          </li>
-        </FooterMenu>
+        <FooterMobileMenu>
+          <ul className="footer-mobile-menu-list">
+            <li className="footer-mobile-menu-item">
+              <a href="/">
+                배송
+              </a>
+            </li>
+            <li className="footer-mobile-menu-item">
+              <a href="/">
+                반품
+              </a>
+            </li>
+            <li className="footer-mobile-menu-item">
+              <a href="/">
+                주문조회
+              </a>
+            </li>
+            <li className="footer-mobile-menu-item">
+              <a href="/">
+                구매 이용약관
+              </a>
+            </li>
+            <li className="footer-mobile-menu-item">
+              <a href="/">
+                도움말
+              </a>
+            </li>
+            <li className="footer-mobile-menu-item">
+              <a href="/">
+                채용정보
+              </a>
+            </li>
+          </ul>
+        </FooterMobileMenu>
+        <FooterPcMenu>
+          <ul className="footer-pc-menu-list">
+            <li className="footer-pc-menu-item">
+              <h5>products</h5>
+              <ul className="menu-list">
+                <li className="menu-list-item">
+                  <a href="/">
+                    신상품
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    공식 아울렛
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li className="footer-pc-menu-item">
+              <h5>sports</h5>
+              <ul className="menu-list">
+                <li className="menu-list-item">
+                  <a href="/">
+                    러닝
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    트레이닝
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    아웃도어
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    축구
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    골프
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    요가
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    테니스
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    농구
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    스케이팅보딩
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    수영
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    사이클링
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li className="footer-pc-menu-item">
+              <h5>company info</h5>
+              <ul className="menu-list">
+                <li className="menu-list-item">
+                  <a href="/">
+                    회사소개
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    채용정보
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    아디다스 앱
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    컨펌드 앱
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    아디다스 블로그
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li className="footer-pc-menu-item">
+              <h5>membership</h5>
+              <ul className="menu-list">
+                <li className="menu-list-item">
+                  <a href="/">
+                    아디클럽
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    adidas Runners
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li className="footer-pc-menu-item">
+              <h5>support</h5>
+              <ul className="menu-list">
+                <li className="menu-list-item">
+                  <a href="/">
+                    고객센터, 심의수선
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    주문 / 배송 조회
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    FAQ
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/">
+                    구매 이용약관
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li className="footer-pc-menu-item">
+              <h5>follow us</h5>
+              <ul className="menu-list">
+                <li className="menu-list-item">
+                  <a href="/" className="icon-wrapper">
+                    <IconFacebook width={20} height={20} fill="#fff" className="icons" />
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/" className="icon-wrapper">
+                    <IconInstagram width={20} height={20} fill="#fff" className="icons" />
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/" className="icon-wrapper">
+                    <IconTwitter width={20} height={20} fill="#fff" className="icons" />
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/" className="icon-wrapper">
+                    <IconPinterest width={20} height={20} fill="#fff" className="icons" />
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/" className="icon-wrapper">
+                    <IconTiktok width={20} height={20} fill="#fff" className="icons" />
+                  </a>
+                </li>
+                <li className="menu-list-item">
+                  <a href="/" className="icon-wrapper">
+                    <IconYoutube width={20} height={20} fill="#fff" className="icons" />
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </FooterPcMenu>
         <Etc>
-          <li>아디다스코리아(유)</li>
-          <li>서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 23층 (06620)</li>
-          <li>대표자: 곽근엽</li>
-          <li>사업자 등록번호: 214-81-07412</li>
-          <li>통신판매업신고: 2007-서울서초-10391</li>
-          <li>개인정보관리책임자: 장영태</li>
-          <li>호스팅서비스사업자: 아디다스코리아(유)</li>
-          <li>고객센터: 1588-8241</li>
-          <li>이메일: service@onlineshop.adidas.co.kr</li>
+          <ul>
+            <li>아디다스코리아(유)</li>
+            <li>서울특별시 서초구 서초대로 74길 4, 삼성생명 서초타워 23층 (06620)</li>
+            <li>대표자: 곽근엽</li>
+            <li>사업자 등록번호: 214-81-07412</li>
+            <li>통신판매업신고: 2007-서울서초-10391</li>
+            <li>개인정보관리책임자: 장영태</li>
+            <li>호스팅서비스사업자: 아디다스코리아(유)</li>
+            <li>고객센터: 1588-8241</li>
+            <li>이메일: service@onlineshop.adidas.co.kr</li>
+          </ul>
         </Etc>
         <FooterBottom>
           <ul>
