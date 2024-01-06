@@ -19,24 +19,22 @@ const Container = styled.header`
 `;
 
 const Header = () => {
-  const [currentScroll, setCurrentScroll] = useState(0);
   const [scrollHide, setScrollHide] = useState(false);
-  
+
+  const wheelHandler = (e) => {
+    if (e.deltaY < 0) {
+      setScrollHide(false);
+    } else if (e.deltaY > 0) {
+      setScrollHide(true);
+    }
+  };
+
   useEffect(() => {
-    (() => {
-      window.addEventListener('scroll', () => setCurrentScroll(window.pageYOffset));
-      if( currentScroll >= 200 ){
-        setScrollHide(true);
-      } else {
-        setScrollHide(false);
-      }
-    })();
+    window.addEventListener('wheel', wheelHandler);
     return () => {
-      window.removeEventListener('scroll', () => {
-        setCurrentScroll(window.pageYOffset);
-      });
+      window.removeEventListener('wheel', wheelHandler);
     };
-  });
+  }, []);
 
   return (
     <>
