@@ -41,7 +41,7 @@ const Content = styled.div`
     transform: translateY(50%);
   }
   
-  .poster-button {
+  .content-button {
     position: relative;
     display: flex;
     justify-content: center;
@@ -69,7 +69,7 @@ const Content = styled.div`
     &::after {
       position: absolute;
       top: 3px;
-      left: 3px;
+      left: 2px;
       content: "";
       width: 100%;
       height: 100%;
@@ -94,7 +94,7 @@ const PosterContent1 = () => {
   return (
     <Container id="PosterContent1" className={ widthSize >= 960 ? "samba-pc" : "samba-mobile"}>
       <Content>
-        <button className="poster-button">
+        <button className="content-button">
           <a href="/">구매하기</a>
           <RightIcon width="24" height="24" fill="#000" />
         </button>        
