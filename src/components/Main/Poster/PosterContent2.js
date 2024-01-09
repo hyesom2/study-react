@@ -1,63 +1,44 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // > icons
 import { ReactComponent as RightIcon } from '../../../assets/icons/icon_arrow_right.svg';
-import { ReactComponent as VideoPause } from '../../../assets/icons/icon_video_pause.svg';
-import { ReactComponent as VideoPlay } from '../../../assets/icons/icon_video_play.svg';
 // > images
-import myshelterLogo from '../../../assets/images/poster/myshelter-logo.png';
-// > video
-import posterVideoMobile from '../../../assets/images/poster/myshelter-mobile.mp4';
-import posterVideoPc from '../../../assets/images/poster/myshelter-pc.mp4';
+import football_Mobile from '../../../assets/images/poster/football_mobile.png';
+import football_Tablet from '../../../assets/images/poster/football_tablet.png';
+import football_Pc from '../../../assets/images/poster/football_pc.png';
 
-const Container = styled.section`
+const Container = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-`;
-
-const VideoWrapper = styled.div`
+  background-repeat: no-repeat;
+  background-size: contain;
   width: 100%;
-  height: 100%;
-
-  video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    z-index: 0;
+  height: 0;
+  
+  &.football-mobile {
+    background-image: url(${football_Mobile});
+    padding-bottom: calc( 840 / 600 * 100%); // 종횡비: calc( 이미지세로 / 이미지가로 * 100%);
   }
-`;
 
-const VideoController = styled.div`
-  z-index: 99;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-  padding: 20px 32px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  &.football-tablet {
+    background-image: url(${football_Tablet});
+    padding-bottom: calc( 960 / 960 * 100%);
+  }
+
+  &.football-pc {
+    background-image: url(${football_Pc});
+    padding-bottom: calc( 853 / 1920 * 100%);
+  }
 `;
 
 const Content = styled.div`
   position: absolute;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  width: auto;
-  height: 100%;
-  padding: 20px 32px;
+  left: 24px;
+  bottom: 20px;
 
-  .content-logo {
-    display: block;
-    width: 200px;
-    height: 130px;
-    margin-bottom: 15px;
+  .content-top {
+    margin-bottom: 30px;
   }
 
   .content-title {
@@ -67,6 +48,7 @@ const Content = styled.div`
     letter-spacing: 0;
     line-height: 32px;
     text-transform: uppercase;
+    text-wrap: balance;
     margin-bottom: 10px;
   }
 
@@ -76,97 +58,97 @@ const Content = styled.div`
     font-weight: 500;
     letter-spacing: 0;
     line-height: 24px;
-    margin-bottom: 30px;
+    text-align: left;
+    text-transform: uppercase;
     text-wrap: balance;
   }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  button {
+  
+  .content-button {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 50px;
+    padding: 0 15px;
+    color: ${({theme}) => theme.colors.black};
     background-color: ${({theme}) => theme.colors.white};
-    padding: 5px 15px;
-    margin-bottom: 10px;
+    border-color: ${({theme}) => theme.colors.white};
+    transition: all 0.3s ease-in-out;
 
-    &:last-child {
-      margin-bottom: 0;
+    &:hover {
+      color: ${({theme}) => theme.colors.hover};
     }
 
     a {
-      color: ${({theme}) => theme.colors.black};
       font-size: 14px;
       font-weight: 700;
       letter-spacing: 2px;
       line-height: 20px;
       text-transform: uppercase;
-      margin-right: 10px;
+      margin-right: 15px;
+    }
+
+    &::after {
+      position: absolute;
+      top: 3px;
+      left: 2px;
+      content: "";
+      width: 100%;
+      height: 100%;
+      border: 1px solid ${({theme}) => theme.colors.white};
+    }
+  }
+
+  @media (min-width: 600px) {
+    left: 64px;
+    bottom: 40px;
+  }
+  @media (min-width: 960px) {
+    bottom: 50%;
+    transform: translateY(50%);
+
+    .content-title {
+      font-size: 40px;
     }
   }
 `;
 
 const PosterContent2 = () => {
-  const videoRef = useRef(null);
-  const [pause, setPause] = useState(false);
-  const playHandler = () => {
-    setPause(!pause);
-    if( pause === false ) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-    }
-  };
-
   const [widthSize, setWidthSize] = useState(window.innerWidth);
   const widthSizeHandle = () => {
     setWidthSize(window.innerWidth);
-  };
+  }
+
   useEffect(() => {
     window.addEventListener('resize', widthSizeHandle);
     return() => {
       window.removeEventListener('resize', widthSizeHandle);
-    };
-  });
+    }
+  }, []);
 
   return (
-    <Container>
-      <VideoWrapper>
-        {/* windowSize를 responsive 적용되게 (현재 새로고침으로밖에 안됨) */}
-        <video ref={videoRef} autoPlay loop playsInline muted>
-          <source src={ widthSize >= 960 ? posterVideoPc : posterVideoMobile } type="video/mp4" />
-        </video>
-      </VideoWrapper>
-      <VideoController onClick={ playHandler }>
-        {
-          pause === false
+    <Container 
+      id="PosterContent2" 
+      className={ 
+        widthSize >= 960 
+        ? 
+        "football-pc" 
+        :
+          widthSize >= 600
           ?
-          <VideoPause width={44} height={44} fill="#fff" />
+          "football-tablet"
           :
-          <VideoPlay width={44} height={44} fill="#fff" />
-        }
-      </VideoController>
+          "football-mobile"
+        }>
       <Content>
-        <img src={ myshelterLogo } alt="logo" className="content-logo"/>
-        <h2 className="content-title">나의 겨울에 반하다</h2>
-        <p className="content-summary">
-          샐 틈 없는 3중 단열, 마이쉘터로 더 포근하게
-        </p>
-        <ButtonWrapper>
-          <button type="button">
-            <a href="/">구매하기</a>
-            <RightIcon width={24} height={24} fill="#000" />
-          </button>
-          <button type="button">
-            <a href="/">여성 제품 더 알아보기</a>
-            <RightIcon width={24} height={24} fill="#000" />
-          </button>
-        </ButtonWrapper>
+        <div className="content-top">
+          <h1 className="content-title">ORIGINALS FOOTBALL ICONS​</h1>
+          <p className="content-summary">희미해진 적 없는 클래식, 영원한 선명함으로</p>
+        </div>
+        <button className="content-button">
+          <a href="/">구매하기</a>
+          <RightIcon width="24" height="24" fill="#000" />
+        </button>        
       </Content>
     </Container>
   );
